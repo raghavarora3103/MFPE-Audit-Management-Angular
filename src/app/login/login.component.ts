@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Security } from '../Services/security.service';
+import { AuthURL } from '../Models/tokens';
 
 
 @Component({
@@ -17,13 +18,14 @@ export class LoginComponent implements OnInit {
   constructor(
   private route:Router,
   private http: HttpClient,
-  private security:Security 
+  private security:Security ,
+  @Inject(AuthURL) private autUrl:string
   ) { }
 
   public username: string ="";
   public password: string ="";
   public message:string="";
-  private autUrl="https://authorizationmicrosvc.azurewebsites.net/api/users/authenticate";
+  // private autUrl="https://authorizationmicrosvc.azurewebsites.net/api/users/authenticate";
 
   headers={
     headers: new HttpHeaders({

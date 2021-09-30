@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthenticationService } from './Services/authentication.service';
 import { ServerErrorComponent } from './server-error/server-error.component';
 import { UnauthorizedErrorComponent } from './unauthorized-error/unauthorized-error.component';
+import { AuthURL, QuesURL, SeverityURL } from './Models/tokens';
 
 
 const appRoutes: Routes=[
@@ -42,7 +43,11 @@ const appRoutes: Routes=[
     RouterModule.forRoot(appRoutes),
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {provide:AuthURL, useValue:'https://authorizationmicrosvc.azurewebsites.net/api/users/authenticate'},
+    {provide:QuesURL, useValue:'https://auditchecklistmicrosvc.azurewebsites.net/api/AuditChecklist/GetAuditTypeQuestions/'},
+    {provide:SeverityURL, useValue:'https://auditseveritymicrosvc.azurewebsites.net/api/AuditSeverity/AuditSeverity/'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

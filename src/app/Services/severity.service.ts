@@ -1,7 +1,8 @@
 
 import { HttpClient, HttpHeaders} from '@angular/common/http';
-import { Injectable } from "@angular/core";
+import { Injectable, Inject} from "@angular/core";
 import { Router } from '@angular/router';
+import { SeverityURL } from '../Models/tokens';
 
 import { GetQuestionsList } from './getQuestionList.service';
 import { Security } from './security.service';
@@ -10,7 +11,6 @@ import { Security } from './security.service';
 @Injectable({providedIn: 'root'})
 
 export class Severity{
-    severityUrl="https://auditseveritymicrosvc.azurewebsites.net/api/AuditSeverity/AuditSeverity/";
     private token=localStorage.getItem('auditToken');
 
     headers={
@@ -24,6 +24,7 @@ export class Severity{
       private route:Router,
       private qList:GetQuestionsList,
       private security:Security,
+      @Inject(SeverityURL) private severityUrl:string
       ){
 
     }

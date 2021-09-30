@@ -1,9 +1,10 @@
 import { GetQuestionsList } from './../Services/getQuestionList.service';
 import { Severity } from './../Services/severity.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Security } from '../Services/security.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { QuesURL } from '../Models/tokens';
 
 @Component({
   selector: 'app-checklist',
@@ -17,11 +18,11 @@ export class ChecklistComponent implements OnInit {
     private sev:Severity , private severityapi:Severity,
     private route:Router,
     private security:Security,
-    private http:HttpClient
+    private http:HttpClient,
+    @Inject(QuesURL) private queSerUrl:string
     ) { }
 
-    queSerUrl="https://auditchecklistmicrosvc.azurewebsites.net/api/AuditChecklist/GetAuditTypeQuestions/";
-    
+    public message:string="";
     private token=localStorage.getItem('auditToken');
     headers={
       headers: new HttpHeaders({
@@ -95,10 +96,14 @@ export class ChecklistComponent implements OnInit {
   }
 
   getResponse(){
-    console.log(this.response);
+    if(this.qList.validateResponse(this.response)){
     this.qList.getResponse(this.response);
     this.qList.setDetails(this.projectName,this.getAuditTypeVal());
     this.route.navigate(['dashboard']);
+    }
+    else{
+      this.message="Please Answer all the questions!";
+    }
   }
 
 

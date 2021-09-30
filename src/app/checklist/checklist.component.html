@@ -47,6 +47,8 @@
         <div class="qdivbtn">
             <button type="submit" class="btn btn-info lastbtn" (click)="getResponse()">Submit</button>
         </div>
-         
+        <div class="alert alert-warning error-message" role="alert" *ngIf="message.length>0">
+            {{ message }}
+        </div> 
     </div> 
 </div>

@@ -9,11 +9,11 @@ export class GetQuestionsList{
   private projectName="";
   private auditType:number=2;
   private response:{questionId:number, answer:string}[]=[
-    {"questionId":-1, "answer":"none"},
-    {"questionId":-1, "answer":"none"},
-    {"questionId":-1, "answer":"none"},
-    {"questionId":-1, "answer":"none"},
-    {"questionId":-1, "answer":"none"},
+    {"questionId":-1, "answer":" "},
+    {"questionId":-1, "answer":" "},
+    {"questionId":-1, "answer":" "},
+    {"questionId":-1, "answer":" "},
+    {"questionId":-1, "answer":" "},
   ];
 
   constructor(private http:HttpClient){}
@@ -25,10 +25,17 @@ export class GetQuestionsList{
 
     getResponse(res:{questionId:number, answer:string}[]){
       this.response=res;
-      console.log("IN SERVICE")
       console.log(this.response);
     }
     
+    validateResponse(res:{questionId:number, answer:string}[])
+    {
+      for(var str of res){
+        if(str.answer==" ")
+        return false;
+      }
+      return true;
+    }
     setDetails(name:string,type:number){
       this.projectName=name;
       this.auditType=type;
